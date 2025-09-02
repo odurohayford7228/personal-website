@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>I-T ADMINISTRATOR- Home</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <img src="hayford lp.jpeg" alt="Profile Photo" class="school-logo">
+            <h1>ODURO EZEKIEL HAYFORD</h1>
+            <h2>WEB DEVELOPER</h2>
+            <h3>I-T ADMINISTRATOR</h3>
+        </div>
+    </header>
+    <section class="hero-section">
+        <video autoplay loop muted playsinline class="hero-video">
+            <source src="ALH.mp4" type="video/mp4">
+        </video>
+        <div class="hero-content">
+            <h2>WEB DEVELOPER & DESIGNER</h2
+            <p>Hi! I'm Oduro Ezekiel Hayford, a passionate web developer creating beautiful and functional websites. I love turning ideas into reality through code and design.</p>
+            <a href="contact.html" class="cta-btn">Contact Me</a>
+        </div>
+    </section>
+    <div class="svg-divider">
+        <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+            <path d="M0,80 C480,160 960,0 1440,80 L1440,120 L0,120 Z" fill="#f8f6fc"/>
+        </svg>
+    </div>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="projects.html">Projects</a>
+        <a href="support.html">Support</a>
+        <a href="blog.html">Blog</a>    
+        <a href="account.html" id="account-link">Account</a>
+        <span id="user-status" style="display: none; color: #ffe082; margin-left: 1rem; font-size: 0.9rem;">
+            WEL , <span id="user-name-display"></span>! 
+            <a href="#" onclick="logout()" style="color: #ff6b6b; margin-left: 0.5rem; padding: 0.3rem 0.8rem; background: rgba(255,107,107,0.1); border-radius: 5px; text-decoration: none; transition: all 0.3s;">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </span>
+    </nav>
+    <div class="container">
+        <section class="about-me" data-aos="fade-up">
+            <h2>About Me</h2>
+            <p>I am a creative and detail-oriented web developer with 3+ years of experience building responsive and user-friendly websites. My expertise includes HTML, CSS, JavaScript, and React.</p>
+            <ul class="skills-list">
+                <li>HTML5 & CSS3</li>
+                <li>JavaScript (ES6+)</li>
+                <li>React.js</li>
+                <li>UI/UX Design</li>
+                <li>Responsive Web Design</li>
+            </ul>
+        </section>
+        <section class="projects-gallery" data-aos="fade-up">
+            <h2>Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card flip-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <img src="images/project1-placeholder.jpg" alt="Project 1">
+                            <h3>Portfolio Website</h3>
+                            <p>A modern, responsive portfolio to showcase my work and skills.</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3>Portfolio Website</h3>
+                            <p>Built with HTML, CSS, and JavaScript. Features smooth animations, responsive design, and a contact form.</p>
+                            <a href="#" class="read-more-btn">View Project</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card flip-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <img src="images/project2-placeholder.jpg" alt="Project 2">
+                            <h3>E-commerce Store</h3>
+                            <p>Fully functional online store with shopping cart and payment integration.</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3>E-commerce Store</h3>
+                            <p>Developed with React and Node.js. Includes product search, user authentication, and order management.</p>
+                            <a href="#" class="read-more-btn">View Project</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card flip-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <img src="images/project3-placeholder.jpg" alt="Project 3">
+                            <h3>Blog Platform</h3>
+                            <p>Personal blog platform with user authentication and content management.</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3>Blog Platform</h3>
+                            <p>Created with Django and Bootstrap. Allows users to register, write posts, and comment.</p>
+                            <a href="#" class="read-more-btn">View Project</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="parallax-section">
+            <div class="parallax-content">
+                <h2>Let's Build Something Amazing Together</h2>
+                <a href="contact.html" class="cta-btn">Get in Touch</a>
+            </div>
+        </section>
+        <section class="mini-blog" data-aos="fade-up">
+            <h2>Latest Thoughts</h2>
+            <div class="blog-posts-grid">
+                <div class="blog-post-card" data-aos="fade-up" data-aos-delay="100">
+                    <h3>The Future of Web Design: Trends to Watch in 2025</h3>
+                    <p>Web design is constantly evolving. In this post, I explore upcoming trends like AI-driven design, immersive 3D elements, and the return of brutalism...</p>
+                    <a href="#" class="read-more-btn">Read More</a>
+                </div>
+                <div class="blog-post-card" data-aos="fade-up" data-aos-delay="200">
+                    <h3>My Journey into React: A Beginner's Perspective</h3>
+                    <p>Learning React was a game-changer for me. I share my challenges, key learnings, and advice for anyone starting their own journey with this powerful library...</p>
+                    <a href="#" class="read-more-btn">Read More</a>
+                </div>
+                <div class="blog-post-card" data-aos="fade-up" data-aos-delay="300">
+                    <h3>Why Every Developer Needs a Personal Portfolio</h3>
+                    <p>A portfolio is more than just a resume—it's your digital story. Here's why I believe every developer should build and maintain their own personal portfolio website...</p>
+                    <a href="#" class="read-more-btn">Read More</a>
+                </div>
+            </div>
+        </section>=785
+    </div>
+    <footer>
+        &copy; 2025 Oduro Ezekiel Hayford. All rights reserved.<br>
+        <a href="#" class="social-link">LinkedIn</a> |
+        <a href="#" class="social-link">GitHub</a> |
+        <a href="#" class="social-link">Twitter</a>
+    </footer>
+                <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>AOS.init({ once: true, duration: 900 });</script>
+    <script src="auth.js"></script>
+</body>
+</html>

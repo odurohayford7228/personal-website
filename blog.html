@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>I-T ADMINISTRATOR - Blog</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .blog-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .blog-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, #920bdb 0%, #6a1b9a 100%);
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .blog-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="0.5" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+        }
+        
+        .blog-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .blog-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .blog-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: white;
+            border-radius: 25px;
+            padding: 0.5rem 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            flex: 1;
+            max-width: 400px;
+        }
+        
+        .search-box input {
+            border: none;
+            outline: none;
+            padding: 0.5rem;
+            flex: 1;
+            font-size: 1rem;
+        }
+        
+        .search-box i {
+            color: #920bdb;
+            margin-right: 0.5rem;
+        }
+        
+        .category-filter {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .category-btn {
+            padding: 0.5rem 1rem;
+            border: 2px solid #920bdb;
+            background: transparent;
+            color: #920bdb;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .category-btn.active,
+        .category-btn:hover {
+            background: #920bdb;
+            color: white;
+        }
+        
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .blog-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(146,11,219,0.2);
+        }
+        
+        .blog-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #920bdb 0%, #6a1b9a 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .blog-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="0.5" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+        }
+        
+        .blog-image i {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            color: white;
+            opacity: 0.8;
+        }
+        
+        .blog-content {
+            padding: 1.5rem;
+        }
+        
+        .blog-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .blog-category {
+            background: linear-gradient(135deg, #920bdb 0%, #6a1b9a 100%);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .blog-date {
+            color: #999;
+        }
+        
+        .blog-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+        
+        .blog-excerpt {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .blog-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+        
+        .blog-author {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .author-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #920bdb 0%, #6a1b9a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+        
+        .read-more-btn {
+            background: linear-gradient(135deg, #920bdb 0%, #6a1b9a 100%);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        
+        .read-more-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(146,11,219,0.3);
+        }
+        
+        .blog-stats {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.8rem;
+            color: #999;
+        }
+        
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 3rem;
+        }
+        
+        .page-btn {
+            padding: 0.8rem 1.2rem;
+            border: 2px solid #920bdb;
+            background: transparent;
+            color: #920bdb;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .page-btn.active,
+        .page-btn:hover {
+            background: #920bdb;
+            color: white;
+        }
+        
+        .featured-post {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 3rem;
+        }
+        
+        .featured-post .blog-image {
+            height: 100%;
+            min-height: 300px;
+        }
+        
+        .featured-post .blog-content {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .featured-post .blog-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .featured-post .blog-excerpt {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .newsletter-signup {
+            background: linear-gradient(135deg, #f8f6fc 0%, #fff 100%);
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            margin: 3rem 0;
+        }
+        
+        .newsletter-signup h3 {
+            color: #6a1b9a;
+            margin-bottom: 1rem;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.8rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        .newsletter-form button {
+            background: linear-gradient(135deg, #920bdb 0%, #6a1b9a 100%);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .newsletter-form button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(146,11,219,0.3);
+        }
+        
+        @media (max-width: 768px) {
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .featured-post {
+                grid-template-columns: 1fr;
+            }
+            
+            .blog-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .search-box {
+                max-width: none;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <img src="OW__32_-removebg-preview.png" alt="Profile Photo" class="school-logo">
+            <h1>ODURO EZEKIEL HAYFORD</h1>
+        </div>
+    </header>
+    
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="projects.html">Projects</a>
+        <a href="support.html">Support</a>
+        <a href="blog.html">Blog</a>    
+        <a href="account.html" id="account-link">Account</a>
+        <span id="user-status" style="display: none; color: #ffe082; margin-left: 1rem; font-size: 0.9rem;">
+            Welcome, <span id="user-name-display"></span>! 
+            <a href="#" onclick="logout()" style="color: #ff6b6b; margin-left: 0.5rem; padding: 0.3rem 0.8rem; background: rgba(255,107,107,0.1); border-radius: 5px; text-decoration: none; transition: all 0.3s;">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </span>
+    </nav>
+    
+    <div class="blog-container">
+        <div class="blog-header" data-aos="fade-up">
+            <h1><i class="fas fa-blog"></i> My Blog</h1>
+            <p>Thoughts, insights, and stories from my journey in web development and technology</p>
+        </div>
+        
+        <div class="blog-controls" data-aos="fade-up">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="search-input" placeholder="Search articles...">
+            </div>
+            <div class="category-filter">
+                <button class="category-btn active" data-category="all">All</button>
+                <button class="category-btn" data-category="web-development">Web Development</button>
+                <button class="category-btn" data-category="design">Design</button>
+                <button class="category-btn" data-category="technology">Technology</button>
+                <button class="category-btn" data-category="tutorials">Tutorials</button>
+            </div>
+        </div>
+        
+        <div class="blog-grid" id="blog-grid">
+            <!-- Featured Post -->
+            <article class="blog-card featured-post" data-category="web-development" data-aos="fade-up">
+                <div class="blog-image">
+                    <i class="fas fa-code"></i>
+                </div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span class="blog-category">Web Development</span>
+                        <span class="blog-date">March 15, 2025</span>
+                    </div>
+                    <h2 class="blog-title">The Future of Web Development: What's Next in 2025</h2>
+                    <p class="blog-excerpt">
+                        As we move further into 2025, the landscape of web development continues to evolve at an unprecedented pace. 
+                        From AI-powered development tools to the rise of WebAssembly, let's explore what's shaping the future of our industry 
+                        and how developers can stay ahead of the curve.
+                    </p>
+                    <div class="blog-footer">
+                        <div class="blog-author">
+                            <div class="author-avatar">O</div>
+                            <span>Oduro Ezekiel Hayford</span>
+                        </div>
+                        <div class="blog-stats">
+                            <span class="stat"><i class="fas fa-eye"></i> 1.2k</span>
+                            <span class="stat"><i class="fas fa-heart"></i> 45</span>
+                            <span class="stat"><i class="fas fa-comment"></i> 12</span>
+                        </div>
+                    </div>
+                    <a href="#" class="read-more-btn" onclick="readPost(1)">Read Full Article</a>
+                </div>
+            </article>
+            
+            <!-- Regular Blog Posts -->
+            <article class="blog-card" data-category="design" data-aos="fade-up" data-aos-delay="100">
+                <div class="blog-image">
+                    <i class="fas fa-palette"></i>
+                </div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span class="blog-category">Design</span>
+                        <span class="blog-date">March 12, 2025</span>
+                    </div>
+                    <h2 class="blog-title">UI/UX Design Trends That Will Dominate 2025</h2>
+                    <p class="blog-excerpt">
+                        From neumorphism to glassmorphism, design trends are constantly evolving. Discover the latest UI/UX trends 
+                        that are making waves in 2025 and learn how to implement them in your projects.
+                    </p>
+                    <div class="blog-footer">
+                        <div class="blog-author">
+                            <div class="author-avatar">O</div>
+                            <span>Oduro Ezekiel Hayford</span>
+                        </div>
+                        <div class="blog-stats">
+                            <span class="stat"><i class="fas fa-eye"></i> 856</span>
+                            <span class="stat"><i class="fas fa-heart"></i> 32</span>
+                            <span class="stat"><i class="fas fa-comment"></i> 8</span>
+                        </div>
+                    </div>
+                    <a href="#" class="read-more-btn" onclick="readPost(2)">Read More</a>
+                </div>
+            </article>
+            
+            <article class="blog-card" data-category="technology" data-aos="fade-up" data-aos-delay="200">
+                <div class="blog-image">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span class="blog-category">Technology</span>
+                        <span class="blog-date">March 10, 2025</span>
+                    </div>
+                    <h2 class="blog-title">How AI is Revolutionizing Web Development</h2>
+                    <p class="blog-excerpt">
+                        Artificial Intelligence is no longer just a buzzword. It's actively transforming how we build websites and applications. 
+                        Explore the practical applications of AI in modern web development.
+                    </p>
+                    <div class="blog-footer">
+                        <div class="blog-author">
+                            <div class="author-avatar">O</div>
+                            <span>Oduro Ezekiel Hayford</span>
+                        </div>
+                        <div class="blog-stats">
+                            <span class="stat"><i class="fas fa-eye"></i> 1.5k</span>
+                            <span class="stat"><i class="fas fa-heart"></i> 67</span>
+                            <span class="stat"><i class="fas fa-comment"></i> 23</span>
+                        </div>
+                    </div>
+                    <a href="#" class="read-more-btn" onclick="readPost(3)">Read More</a>
+                </div>
+            </article>
+            
+            <article class="blog-card" data-category="tutorials" data-aos="fade-up" data-aos-delay="300">
+                <div class="blog-image">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span class="blog-category">Tutorials</span>
+                        <span class="blog-date">March 8, 2025</span>
+                    </div>
+                    <h2 class="blog-title">Building a Modern Portfolio Website: Step-by-Step Guide</h2>
+                    <p class="blog-excerpt">
+                        Learn how to create a stunning portfolio website that showcases your skills and attracts potential clients. 
+                        This comprehensive guide covers everything from design to deployment.
+                    </p>
+                    <div class="blog-footer">
+                        <div class="blog-author">
+                            <div class="author-avatar">O</div>
+                            <span>Oduro Ezekiel Hayford</span>
+                        </div>
+                        <div class="blog-stats">
+                            <span class="stat"><i class="fas fa-eye"></i> 2.1k</span>
+                            <span class="stat"><i class="fas fa-heart"></i> 89</span>
+                            <span class="stat"><i class="fas fa-comment"></i> 34</span>
+                        </div>
+                    </div>
+                    <a href="#" class="read-more-btn" onclick="readPost(4)">Read More</a>
+                </div>
+            </article>
+            
+            <article class="blog-card" data-category="web-development" data-aos="fade-up" data-aos-delay="400">
+                <div class="blog-image">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span class="blog-category">Web Development</span>
+                        <span class="blog-date">March 5, 2025</span>
+                    </div>
+                    <h2 class="blog-title">Responsive Design Best Practices for 2025</h2>
+                    <p class="blog-excerpt">
+                        With new devices and screen sizes emerging constantly, responsive design has never been more important. 
+                        Discover the latest best practices and techniques for creating truly responsive websites.
+                    </p>
+                    <div class="blog-footer">
+                        <div class="blog-author">
+                            <div class="author-avatar">O</div>
+                            <span>Oduro Ezekiel Hayford</span>
+                        </div>
+                        <div class="blog-stats">
+                            <span class="stat"><i class="fas fa-eye"></i> 987</span>
+                            <span class="stat"><i class="fas fa-heart"></i> 41</span>
+                            <span class="stat"><i class="fas fa-comment"></i> 15</span>
+                        </div>
+                    </div>
+                    <a href="#" class="read-more-btn" onclick="readPost(5)">Read More</a>
+                </div>
+            </article>
+            
+            <article class="blog-card" data-category="design" data-aos="fade-up" data-aos-delay="500">
+                <div class="blog-image">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span class="blog-category">Design</span>
+                        <span class="blog-date">March 3, 2025</span>
+                    </div>
+                    <h2 class="blog-title">Color Psychology in Web Design: Making the Right Choices</h2>
+                    <p class="blog-excerpt">
+                        Colors have a profound impact on user behavior and perception. Learn how to use color psychology 
+                        effectively in your web designs to create better user experiences and achieve your goals.
+                    </p>
+                    <div class="blog-footer">
+                        <div class="blog-author">
+                            <div class="author-avatar">O</div>
+                            <span>Oduro Ezekiel Hayford</span>
+                        </div>
+                        <div class="blog-stats">
+                            <span class="stat"><i class="fas fa-eye"></i> 743</span>
+                            <span class="stat"><i class="fas fa-heart"></i> 28</span>
+                            <span class="stat"><i class="fas fa-comment"></i> 11</span>
+                        </div>
+                    </div>
+                    <a href="#" class="read-more-btn" onclick="readPost(6)">Read More</a>
+                </div>
+            </article>
+        </div>
+        
+        <div class="newsletter-signup" data-aos="fade-up">
+            <h3><i class="fas fa-envelope"></i> Stay Updated!</h3>
+            <p>Subscribe to my newsletter for the latest articles, tutorials, and insights delivered to your inbox.</p>
+            <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
+                <input type="email" placeholder="Enter your email address" required>
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+        
+        <div class="pagination" data-aos="fade-up">
+            <button class="page-btn active">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn">3</button>
+            <button class="page-btn">Next <i class="fas fa-arrow-right"></i></button>
+        </div>
+    </div>
+    
+    <footer>
+        &copy; 2025 Oduro Ezekiel Hayford. All rights reserved.<br>
+        <a href="#" class="social-link">LinkedIn</a> |
+        <a href="#" class="social-link">GitHub</a> |
+        <a href="#" class="social-link">Twitter</a>
+    </footer>
+    
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>AOS.init({ once: true, duration: 900 });</script>
+    <script src="auth.js"></script>
+    <script>
+        // Blog functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeBlog();
+        });
+        
+        function initializeBlog() {
+            // Category filtering
+            const categoryBtns = document.querySelectorAll('.category-btn');
+            categoryBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const category = this.getAttribute('data-category');
+                    filterPosts(category);
+                    
+                    // Update active button
+                    categoryBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+            
+            // Search functionality
+            const searchInput = document.getElementById('search-input');
+            searchInput.addEventListener('input', function() {
+                searchPosts(this.value);
+            });
+            
+            // Pagination
+            const pageBtns = document.querySelectorAll('.page-btn');
+            pageBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    pageBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    // In a real app, this would load different pages
+                });
+            });
+        }
+        
+        function filterPosts(category) {
+            const posts = document.querySelectorAll('.blog-card');
+            posts.forEach(post => {
+                const postCategory = post.getAttribute('data-category');
+                if (category === 'all' || postCategory === category) {
+                    post.style.display = 'block';
+                    post.style.animation = 'fadeInUp 0.5s ease-out';
+                } else {
+                    post.style.display = 'none';
+                }
+            });
+        }
+        
+        function searchPosts(query) {
+            const posts = document.querySelectorAll('.blog-card');
+            const searchTerm = query.toLowerCase();
+            
+            posts.forEach(post => {
+                const title = post.querySelector('.blog-title').textContent.toLowerCase();
+                const excerpt = post.querySelector('.blog-excerpt').textContent.toLowerCase();
+                const category = post.querySelector('.blog-category').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || excerpt.includes(searchTerm) || category.includes(searchTerm)) {
+                    post.style.display = 'block';
+                    post.style.animation = 'fadeInUp 0.5s ease-out';
+                } else {
+                    post.style.display = 'none';
+                }
+            });
+        }
+        
+        function readPost(postId) {
+            // In a real application, this would navigate to the full blog post
+            alert(`Reading blog post ${postId}. In a real application, this would open the full article page.`);
+        }
+        
+        function subscribeNewsletter(event) {
+            event.preventDefault();
+            const email = event.target.querySelector('input[type="email"]').value;
+            
+            // Simulate newsletter subscription
+            alert(`Thank you for subscribing with ${email}! You'll receive updates about new blog posts and tutorials.`);
+            event.target.reset();
+        }
+        
+        // Add some interactive features
+        function likePost(postId) {
+            const likeBtn = document.querySelector(`[data-post="${postId}"] .fa-heart`);
+            likeBtn.style.color = '#dc3545';
+            likeBtn.style.animation = 'pulse 0.5s ease-out';
+        }
+        
+        // Add CSS animation for pulse effect
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes pulse {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.2); }
+                100% { transform: scale(1); }
+            }
+            
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
